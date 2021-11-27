@@ -54,11 +54,13 @@ contract BuildCollective is Ownable {
 
   mapping(address => Enterprise) private enterprises;
 
-  function registerEnterprise(string memory name, address[] memory address_members, uint256 amount) public returns (Enterprise memory) {
+  event RegisterEnterprise(address indexed ownerAddress, Enterprise indexed enterprise);
+
+  function registerEnterprise(string memory name, address[] memory members_address, uint256 balance_) public returns (Enterprise memory) {
     require(bytes(name).length > 0);
     require(users[msg.sender].registered);
-    enterprises[msg.sender] = Enterprise(name, msg.sender, address_members, amount);
-    emit registerEnterprise(msg.sender, enterprises[msg.sender]);
+    enterprises[msg.sender] = Enterprise(name, msg.sender, members_address, balance_);
+    emit RegisterEnterprise(msg.sender, enterprises[msg.sender]);
     return enterprises[msg.sender];
   }
 
@@ -66,4 +68,5 @@ contract BuildCollective is Ownable {
     require(users[enterprise_address].registered);
     return enterprises[enterprise_address];
   }
+
 }
