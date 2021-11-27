@@ -4,6 +4,9 @@ pragma experimental ABIEncoderV2;
 import "./Ownable.sol";
 
 contract BuildCollective is Ownable {
+
+  //User
+
   struct User {
     string username;
     uint256 balance;
@@ -11,10 +14,20 @@ contract BuildCollective is Ownable {
   }
 
   mapping(address => User) private users;
+  address[] public allUsers;
 
   event UserSignedUp(address indexed userAddress, User indexed user);
 
   function user(address userAddress) public view returns (User memory) {
+    return users[userAddress];
+  }
+
+  function getAllUsers() external view returns (address[] memory) {
+    return allUsers;
+  }
+
+  function getUser(address userAddress) public view returns (User memory) {
+    require(users[userAddress].registered);
     return users[userAddress];
   }
 
@@ -28,5 +41,29 @@ contract BuildCollective is Ownable {
     require(users[msg.sender].registered);
     users[msg.sender].balance += amount;
     return true;
+  }
+
+//enterprise
+
+  struct Enterprise {
+    string name;
+    address user;
+    address[] membersAddress;
+    uint256 balance;
+  }
+
+  mapping(address => Enterprise) private enterprises;
+
+  function registerEnterprise(string memory name, address[] memory address_members, uint256 amount) public returns (Enterprise memory) {
+    require(bytes(name).length > 0);
+    require(users[msg.sender].registered);
+    enterprises[msg.sender] = Enterprise(name, msg.sender, address_members, amount);
+    emit registerEnterprise(msg.sender, enterprises[msg.sender]);
+    return enterprises[msg.sender];
+  }
+
+  function getEnterprise(address enterprise_address) public view returns (Enterprise memory) {
+    require(users[enterprise_address].registered);
+    return enterprises[enterprise_address];
   }
 }
