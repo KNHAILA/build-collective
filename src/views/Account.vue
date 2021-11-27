@@ -14,7 +14,7 @@
          <input
           type="number"
           class="input-username"
-          v-model="userBalance"
+          v-model="userbalance"
           placeholder="Type the balance of tokens"
         />
         <button type="submit" class="input-username">Open</button>
@@ -76,17 +76,21 @@ export default defineComponent({
   data() {
     const account = null
     const username = ''
-    return { account, username }
+    const userbalance = ''
+    return {
+       account,
+       username,
+       userbalance}
   },
   methods: {
     async updateAccount() {
       const { address, contract } = this
-      this.account = await contract.methods.user(address).call()
+      this.account = await contract.methods.getUser(address).call()
     },
     async signUp() {
-      const { contract, username } = this
+      const { contract, username, userbalance } = this
       const name = username.trim().replace(/ /g, '_')
-      await contract.methods.signUp(name).send()
+      await contract.methods.signUp(name, userbalance).send()
       await this.updateAccount()
       this.username = ''
     },
@@ -98,7 +102,7 @@ export default defineComponent({
   },
   async mounted() {
     const { address, contract } = this
-    const account = await contract.methods.user(address).call()
+    const account = await contract.methods.getUser(address).call()
     if (account.registered) this.account = account
   },
 })

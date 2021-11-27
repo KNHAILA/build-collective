@@ -75,7 +75,35 @@ export default defineComponent({
       enterprise_balance,
     }
   },
+  methods: {
+    async registerEnterprise() {
+      const { contract, enterprise_name, enterprise_members, enterprise_balance, address } =
+        this
+      await contract.methods
+        .registerEnterprise(enterprise_name, enterprise_members, enterprise_balance)
+        .send()
+      this.enterprise_account = await contract.methods
+        .getEnterprise(address)
+        .call()
+      await this.$router.push({ name: 'Account' })
+    },
+  },
+
+  async mounted() {
+    const { address, contract } = this
+    this.enterprise_account = await contract.methods
+      .getEnterprise(address)
+      .call()
+    const allUsers = await contract.methods.getAllUsers().call()
+    for (const userAddresse of allUsers) {
+      const account = await contract.methods
+        .getUser(userAddresse)
+        .call()
+      this.users.push({ address: userAddresse, account: account }) 
+    }
+  },
 })
+
 </script>
 
 <style lang="css" scoped>
