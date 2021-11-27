@@ -93,4 +93,26 @@ html {
   display: flex;
   flex-direction: column;
 }
+.home-wrapper {
+  margin: auto 24px auto 24px;
+}
+
+.home {
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-gap: 24px;
+}
+
+.card-body {
+  padding: 12px;
+  display: block;
+  font-family: inherit;
+  font-size: 1.2rem;
+  font-weight: inherit;
+  text-align: center;
+  color: inherit;
+  text-decoration: none;
+  font-variant: small-caps;
+}
 </style>

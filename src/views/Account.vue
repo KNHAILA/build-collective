@@ -21,7 +21,7 @@
       </card>
     </form>
   </div>
-  <div class="home" v-if="account">
+  <div v-if="account">
     <div class="card-home-wrapper">
       <card
         :title="account.username"
@@ -29,20 +29,36 @@
         :gradient="true"
       >
         <div class="explanations">
-          This data has been fetched from the blockchain. You started by
-          connecting MetaMask, and you fetched your data by reading the
-          blockchain. Try to modify the code to see what's happening!
-        </div>
-        <div class="explanations">
-          On your account on the contract, you have
-          {{ account.balance }} tokens. If you click
-          <button class="button-link" @click="addTokens">here</button>, you can
-          add some token to your account. Just give it a try! And think to put
-          an eye on Ganache!
+          <p><b>Address: </b>{{ address }}</p>
+          <v-divider></v-divider>
+          <p><b>ETH: </b>{{ balance }}</p>
+          <v-divider></v-divider>
+          <p><b>Balance: </b>{{ account.balance }} Tokens</p>
         </div>
       </card>
     </div>
   </div>
+
+
+   <spacer :size="24" />
+    <div class="home">
+      <card v-if="!enterpriseAccount">
+        <router-link class="card-body" to="/open-entreprise">
+          Create your enterprise
+        </router-link>
+      </card>
+       <card>
+        <router-link class="card-body" to="/create-project">
+          Create your project
+        </router-link>
+      </card>
+       <card>
+        <router-link class="card-body" to="/view-projects">
+          View all the projects
+        </router-link>
+      </card>
+    </div>
+  
 </template>
 
 <script lang="ts">
@@ -129,5 +145,9 @@ export default defineComponent({
   color: white;
   font-family: inherit;
   font-size: 1.3rem;
+}
+v-divider {
+    border-color: white;
+    color: white;
 }
 </style>
