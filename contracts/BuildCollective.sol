@@ -18,12 +18,10 @@ contract BuildCollective is Ownable {
     return users[userAddress];
   }
 
-  function signUp(string memory username, uint256 balance) public returns (User memory) {
+  function signUp(string memory username) public returns (User memory) {
     require(bytes(username).length > 0);
-    users[msg.sender] = User(username, balance, true);
+    users[msg.sender] = User(username, 0, true);
     emit UserSignedUp(msg.sender, users[msg.sender]);
-    userAddresses.push(msg.sender);
-    return users[msg.sender];
   }
 
   function addBalance(uint256 amount) public returns (bool) {
