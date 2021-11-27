@@ -2,15 +2,22 @@
   <div class="home" v-if="!account">
     <form @submit.prevent="signUp">
       <card
-        title="Enter your username here"
-        subtitle="Type directly in the input and hit enter. All spaces will be converted to _"
+        title="Open a user account"
+        subtitle="With name and balance"
       >
         <input
           type="text"
           class="input-username"
           v-model="username"
-          placeholder="Type your username here"
+          placeholder="Type the username here"
         />
+         <input
+          type="number"
+          class="input-username"
+          v-model="userBalance"
+          placeholder="Type the balance of tokens"
+        />
+        <button type="submit" class="input-username">Open</button>
       </card>
     </form>
   </div>
