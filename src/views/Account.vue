@@ -39,12 +39,10 @@
     </div>
   </div>
 
-
-   <spacer :size="24" />
-    <div class="home">
+    <div class="home-wrapper">
       <card v-if="!enterpriseAccount">
         <router-link class="card-body" to="/open-entreprise">
-          Create your enterprise
+          Open an entreprise
         </router-link>
       </card>
        <card>
@@ -150,4 +148,13 @@ v-divider {
     border-color: white;
     color: white;
 }
+.home-wrapper {
+  margin: auto 24px auto 24px;
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-gap: 24px;
+}
+
+
 </style>
