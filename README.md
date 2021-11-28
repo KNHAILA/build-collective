@@ -76,15 +76,18 @@ Implement an OpenCollective from scratch in Solidity.
 
 # Smart Contract
 
-- Open user account, with a name and a balance.
-- Open an entreprise account, with a name, an owner and some members, possibly with a balance.
-- Create projects on which we can give money for sponsoring. Each project has a balance, a name and a list of contributors. Each project belongs to a user or an entreprise. The money given to the project can be send to contributors, and contributors only.
-- On a project, you should be able to create bounties. Bounties are bugs with a reward: if you spot a bug and you want to have it fix quickly, open a bounty and put some eth on it. When the fix is pushed, the author will get the eth. He’s a bounty hunter.
-- Add the ability to put some link to commits from GitHub or GitLab in the projects, to keep a track of what has been done.
+In this project, user can: 
+- open user account, with a name and a balance.
+- Open an entreprise account, with a name, an owner and some members and balance.
+- Create projects. Each project has a balance, a name and a list of contributors. Each project belongs to a user or an entreprise. The money given to the project can be send to contributors, and contributors only.
+- User able to create bounties. Bounties are bugs with a reward: if user spot a bug and she/he want to have it fix quickly, she/he have to open a bounty and put some eth on it.
+- Add the ability to put some link to commits from GitHub or GitLab in the projects.
 
 # Front
 
 - Create a page to open a user account. Remember, each user is identified by its wallet address.
 - Create a page to open an entreprise account.
+- Create a page to show entreprise information.
 - Create a page to create a project.
-- Create a page to get a full recap of everything that happened on a project as a timeline.
+- Create a page to create a bounty.
+- Create a page to show all project.
