@@ -1,4 +1,5 @@
 <template lang="html">
+
   <div class="home" v-if="!account">
     <form @submit.prevent="signUp">
       <card
@@ -21,6 +22,8 @@
       </card>
     </form>
   </div>
+
+
   <div v-if="account">
     <div class="card-home-wrapper">
       <card
@@ -39,10 +42,16 @@
     </div>
   </div>
 
+
     <div class="home-wrapper">
-      <card v-if="!enterpriseAccount">
+      <card v-if="!enterprise_account">
         <router-link class="card-body" to="/open-entreprise">
-          Open an entreprise
+          Register an entreprise
+        </router-link>
+      </card>
+      <card v-if="enterprise_account">
+        <router-link class="card-body" to="/entreprise_information">
+          See your entreprise information
         </router-link>
       </card>
        <card>
@@ -74,15 +83,26 @@ export default defineComponent({
     return { address, contract, balance }
   },
   data() {
+    //user
     const account = null
     const username = ''
     const userbalance = ''
+    //enterprise
+    const enterprise_owner: any = { username: '', balance: 0 }
+    const enterprise_account = null
+    const enterprise_members: any[] = []
+
     return {
        account,
        username,
-       userbalance}
+       userbalance,
+       enterprise_owner,
+       enterprise_account,
+       enterprise_members,
+       }
   },
   methods: {
+    //user
     async updateAccount() {
       const { address, contract } = this
       this.account = await contract.methods.getUser(address).call()
@@ -101,9 +121,20 @@ export default defineComponent({
     },
   },
   async mounted() {
+    //user
     const { address, contract } = this
     const account = await contract.methods.getUser(address).call()
     if (account.registered) this.account = account
+
+    //enterprise
+    const enterprise_account = await contract.methods
+      .getEnterprise(address)
+      .call()
+    if (enterprise_account.name) { this.enterprise_account = enterprise_account }
+
+    //projects
+    
+
   },
 })
 </script>
@@ -148,7 +179,7 @@ export default defineComponent({
   font-family: inherit;
   font-size: 1.3rem;
 }
-v-divider {
+.v-divider {
     border-color: white;
     color: white;
 }

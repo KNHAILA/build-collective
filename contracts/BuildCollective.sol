@@ -85,7 +85,7 @@ contract BuildCollective is Ownable {
     string link;
     uint256 balance;
     address owner; 
-    string ownerType; //owner type can be equal to "user" or "enterprise"
+    bool ownerType; //owner type can be equal to "user" or "enterprise"
     address[] contributors;
   }
 
@@ -97,7 +97,7 @@ contract BuildCollective is Ownable {
     return projects[ownerAddress];
   }
 
-  function createProject(string memory name, string memory link, uint256 amount, string memory ownerType, address[] memory contributors) public returns (Project memory){
+  function createProject(string memory name, string memory link, uint256 amount, bool ownerType, address[] memory contributors) public returns (Project memory){
     require(users[msg.sender].registered);
     require(bytes(name).length > 0);
     Project_id = Project_id + 1;

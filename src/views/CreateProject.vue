@@ -1,11 +1,11 @@
 <template lang="html">
   <form @submit.prevent="createProject">
     <card title="Create a project">
-      <div v-if="enterpriseAccount">
+      <div v-if="enterprise_account">
         <span class="input-username">Choose the project owner</span>
-          <select  v-model="ownedByUser">
+          <select  v-model="ownerType">
             <option id="user" value="false">
-            {{ enterpriseAccount.name }}
+            {{ enterprise_account.name }}
             </option>
             <option   id="user" value="true"> 
             {{ account.username }}
@@ -15,13 +15,13 @@
       <input
         type="text"
         class="input-username"
-        v-model="projectName"
+        v-model="project_name"
         placeholder="Type Project Name"
       />
       <input
         type="text"
         class="input-username"
-        v-model="projectLink"
+        v-model="project_link"
         placeholder="Type Project  Github or Gitlab Link"
       />
       <span class="input-username">Choose one or multiple contributors</span>
@@ -34,14 +34,14 @@
           type="checkbox"
           :id="user.address"
           :value="user.address"
-          v-model="projectContributors"
+          v-model="project_contributors"
         />
         <span>{{ user.account.username }}</span>
       </div>
       <input
         type="number"
         class="input-username"
-        v-model="projectBalance"
+        v-model="project_balance"
         placeholder="Balance of tokens"
       />
       <button type="submit" class="input-username">Submit</button>
@@ -66,23 +66,23 @@ export default defineComponent({
   data() {
     const account = null
     const users: any[] = []
-    const enterpriseAccount = null
+    const enterprise_account = null
     const project = null
-    const ownedByUser = 'true'
-    const projectName = ''
-    const projectBalance = ''
-    const projectLink = ''
-    const projectContributors: never[] = []
+    const ownerType = 'true'
+    const project_name = ''
+    const project_balance = ''
+    const project_link = ''
+    const project_contributors: never[] = []
     return {
       account,
-      enterpriseAccount,
+      enterprise_account,
       project,
       users,
-      ownedByUser,
-      projectName,
-      projectBalance,
-      projectLink,
-      projectContributors,
+      project_name,
+      project_link,
+      project_balance,
+      ownerType,
+      project_contributors,
     }
   },
   methods: {
@@ -93,39 +93,42 @@ export default defineComponent({
     async createProject() {
       const {
         contract,
-        projectName,
-        ownedByUser,
-        projectLink,
-        projectBalance,
-        projectContributors,
+        project_name,
+        project_link,
+        project_balance,
+        ownerType,
+        project_contributors,
       } = this
-      const name = projectName.trim().replace(/ /g, '_')
+      const name = project_name.trim().replace(/ /g, '_')
       await contract.methods
-        .projectCreate(
+        .createProject(
           name,
-          projectLink,
-          ownedByUser,
-          projectContributors,
-          projectBalance
+          project_link,
+          project_balance,
+          ownerType,
+          project_contributors,
         )
         .send()
       await this.$router.push({ name: 'Account' })
     },
   },
+
   async mounted() {
     const { address, contract } = this
     const account = await contract.methods.getUser(address).call()
     if (account.registered) this.account = account
-    const enterpriseAccount = await contract.methods
+
+    const enterprise_account = await contract.methods
       .getEnterprise(address)
       .call()
-    if (enterpriseAccount.name) this.enterpriseAccount = enterpriseAccount
-    const userAddresses = await contract.methods.getAllUsers().call()
-    for (const userAddressesKey of userAddresses) {
+    if (enterprise_account.name) this.enterprise_account = enterprise_account
+
+    const users = await contract.methods.getAllUsers().call()
+    for (const userAddresse of users) {
       const account = await contract.methods
-        .getUser(userAddressesKey)
+        .getUser(userAddresse)
         .call()
-      this.users.push({ address: userAddressesKey, account: account })
+      this.users.push({ address: userAddresse, account: account })
     }
   },
 })
