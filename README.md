@@ -1,9 +1,12 @@
 # Build Collective
 
-Welcome to the DAAR project. The idea will be to implement an OpenCollective competitor
-in a decentralized way, on Ethereum. This will have cool side effects, like not
-be forced to pay for servers.
+Welcome to the DAAR project. The idea will be to implement an OpenCollective competitor in a decentralized way, on Ethereum. This will have cool side effects, like not be forced to pay for servers.
 
+# General info
+* Team members :
+   - Maedeh Daemi  :   maedeh.daemi@etu.sorbonne-universite.fr
+   - Kaoutar Nhaila :  Kaoutar.nhaila@etu.sorbonne-universite.fr
+   
 # Installation
 
 ```bash
@@ -84,10 +87,22 @@ In this project, user can:
 - Add the ability to put some link to commits from GitHub or GitLab in the projects.
 
 # Front
-
+![1](https://imgur.com/P24DLvE.png)
+![2](https://imgur.com/4EUokcn.png)
 - Create a page to open a user account. Remember, each user is identified by its wallet address.
+![1](https://imgur.com/EOmuGht.png)
+![1](https://imgur.com/65McLG9.png)
+![1](https://imgur.com/65McLG9.png)
+![1](https://imgur.com/edIyBvq.png)
+![1](https://imgur.com/Qz9IR99.png)
 - Create a page to open an entreprise account.
+![2](https://imgur.com/80kDpV7.png)
 - Create a page to show entreprise information.
+![3](https://imgur.com/iWxeMh9.png)
+![3](https://imgur.com/shuwrLC.png)
 - Create a page to create a project.
+![4](https://imgur.com/yaHHrme.png)
 - Create a page to create a bounty.
+
 - Create a page to show all project.
+![6](https://imgur.com/uLqsExi.png)
