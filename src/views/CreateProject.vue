@@ -1,6 +1,6 @@
 <template lang="html">
-  <form @submit.prevent="createProject">
-    <card title="Create a project">
+  <form @submit.prevent="createProject" class="home-wrapper">
+    <card title="Create a project" :blue="true">
       <div v-if="enterprise_account">
         <span class="input-username">Choose the project owner</span>
           <select  v-model="ownerType">
@@ -141,7 +141,7 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   justify-content: center;
-  max-width: 100%;
+  max-width: 500px;
   margin: auto;
 }
 
@@ -164,7 +164,6 @@ export default defineComponent({
   cursor: pointer;
 }
 
-.select-type,
 .input-username {
   background: transparent;
   border: none;
@@ -175,4 +174,17 @@ export default defineComponent({
   font-family: inherit;
   font-size: 1.3rem;
 }
+.v-divider {
+    border-color: white;
+    color: white;
+}
+.home-wrapper {
+  margin: auto 24px auto 24px;
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-gap: 24px;
+}
+
+
 </style>

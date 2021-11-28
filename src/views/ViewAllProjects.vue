@@ -2,7 +2,7 @@
     <h1>Projects :</h1>
         <div v-for="project in projects" v-bind:key="project.name">
             <div style="padding: 12px">
-                <card :title="project.name">
+                <card :title="project.name" :blue="true">
                 <p>
                     <b>Owner of Project : </b>
                     {{ project.ownedByUser ? project.owner.username : project.owner.name }}
@@ -55,23 +55,20 @@ export default defineComponent({
           let owner = null
           if (project.ownedByUser) {
             owner = await this.contract.methods.getUser(project.owner).call()
-            console.log(owner)
             } else {
             owner = await this.contract.methods
               .getEnterprise(project.owner)
               .call()
-                console.log(owner)
           }
           let balance = project.balance
-          const contributorsAddress = project.contributorsList
-          console.log(contributorsAddress)
+          const contributorsList = project.contributors
           let contributors = []
-          for (const contributorsAddressKey of contributorsAddress) {
+          for (const contributorsAdd of contributorsList) {
             const contributor = await this.contract.methods
-              .getUser(contributorsAddressKey)
+              .getUser(contributorsAdd)
               .call()
             contributors.push({
-              address: contributorsAddressKey,
+              address: contributorsAdd,
               account: {
                 username: contributor.username,
                 balance: contributor.balance,
