@@ -92,7 +92,6 @@ In this project, user can:
 - Create a page to open a user account. Remember, each user is identified by its wallet address.
 ![1](https://imgur.com/EOmuGht.png)
 ![1](https://imgur.com/65McLG9.png)
-![1](https://imgur.com/65McLG9.png)
 ![1](https://imgur.com/edIyBvq.png)
 ![1](https://imgur.com/Qz9IR99.png)
 - Create a page to open an entreprise account.
