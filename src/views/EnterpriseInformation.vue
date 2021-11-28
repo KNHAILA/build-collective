@@ -3,7 +3,7 @@
 
 <div class="home-wrapper">
     <card
-      title= "Your Enterprise Information"
+      title= "Your Enterprise Information" :blue="true"
       :subtitle="`${enterprise_account.name}`"
       v-if="enterprise_account"
     >
@@ -18,7 +18,7 @@
             v-bind:key="member.address"
             style="padding-left: 10px"
           >
-            Account Name: {{ member.account.username }} &nbsp; Address:
+            Member username: {{ member.account.username }} / Member address:
             {{ member.address }}
           </p>
         </div>
