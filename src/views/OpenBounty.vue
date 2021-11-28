@@ -1,12 +1,11 @@
 <template lang="html">
 <div class="home">
-  <form @submit.prevent="registerEnterprise">
+  <form @submit.prevent="createBug">
     <card
-      title="Create your enterprise" :blue="true"
+      title="Create a Bounty" :blue="true"
       subtitle="Please enter the requested informations."
     >
     
-      
       <input
         type="text"
         class="input-username"
@@ -52,7 +51,7 @@ import { useStore } from 'vuex'
 import Card from '@/components/Card.vue'
 
 export default defineComponent({
-  name: 'OpenEnterprise',
+  name: 'OpenBounty',
   components: { Card },
   setup() {
     const store = useStore()
@@ -61,45 +60,32 @@ export default defineComponent({
     return { address, contract }
   },
   data() {
-    const users: any[] = []
-    const enterprise_account = null
-    const enterprise_name = ''
-    const enterprise_balance = ''
-    const enterprise_members: never[] = []
-    return {
-      enterprise_name,
-      users,
-      enterprise_account,
-      enterprise_members,
-      enterprise_balance,
-    }
+    const id = this.$route.query.id
+    const userAddress = this.$route.query.ownerAddress
+    const title = ''
+    const description = ''
+    const ETH_reward = 0
+    const git_link = ''
+
+    return { 
+        id, 
+        userAddress, 
+        title, 
+        description, 
+        ETH_reward, 
+        git_link }
   },
   methods: {
-    async registerEnterprise() {
-      const { contract, enterprise_name, enterprise_members, enterprise_balance, address } =
+    async createBug() {
+      const { contract, userAddress, title, description, ETH_reward, git_link } =
         this
       await contract.methods
-        .registerEnterprise(enterprise_name, enterprise_members, enterprise_balance)
+        .createBug(userAddress, title, description, ETH_reward, git_link)
         .send()
-      this.enterprise_account = await contract.methods
-        .getEnterprise(address)
-        .call()
-      await this.$router.push({ name: 'Account' })
+        this.$router.push({
+        //////
+      })
     },
-  },
-
-  async mounted() {
-    const { address, contract } = this
-    this.enterprise_account = await contract.methods
-      .getEnterprise(address)
-      .call()
-    const allUsers = await contract.methods.getAllUsers().call()
-    for (const userAddresse of allUsers) {
-      const account = await contract.methods
-        .getUser(userAddresse)
-        .call()
-      this.users.push({ address: userAddresse, account: account }) 
-    }
   },
 })
 
